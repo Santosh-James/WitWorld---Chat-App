@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WitWorld</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="center-container">
+      <h1>WitWorld</h1>
+      <p>Join the WitWorld revolution – where laughter knows no borders!</p>
+      <div class="chat-container" id="chat-container"></div>
+      <form id="chat-form">
+        <input type="text" id="username" placeholder="Enter your name" />
+        <button type="submit">Join</button>
+      </form>
+      <form id="message-form">
+        <input
+          type="text"
+          id="chat-input"
+          placeholder="Start Chatting!"
+        />
+        <button type="submit">Send</button>
+      </form>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io();
+      const chatForm = document.getElementById("chat-form");
+      const usernameInput = document.getElementById("username");
+      const chatInput = document.getElementById("chat-input");
+      const chatContainer = document.getElementById("chat-container");
+
+      chatForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        socket.emit("join", usernameInput.value);
+        chatForm.style.display = "none";
+        document.getElementById("message-form").style.display = "block";
+      });
+
+      socket.on("chat message", (msg) => {
+        const chatMessage = document.createElement("div");
+        chatMessage.classList.add("chat-message");
+        chatMessage.textContent = msg;
+        chatContainer.appendChild(chatMessage);
+      });
+
+      const messageForm = document.getElementById("message-form");
+      messageForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        socket.emit("chat message", chatInput.value);
+        chatInput.value = "";
+      });
+
+      var $chat = $("#chatWindow");
+
+      $chat.on("scroll", function () {
+        var $chatHeight = $chat.height();
+        var $chatPosition = $chat.height() + $chat.scrollTop();
+
+        if (($chatHeight - $chatPosition) / $chatHeight === 0) {
+          $chat.animate({ scrollTop: $chat.prop("scrollHeight") }, 500);
+        }
+      });
+
+      socket.on("chat message", function (msg) {
+        $("#messages").append($("<li>").text(msg));
+
+        if (($chatHeight - $chatPosition) / $chatHeight === 0) {
+          $chat.animate({ scrollTop: $chat.prop("scrollHeight") }, 500);
+        }
+      });
+    </script>
+  </body>
+</html>
