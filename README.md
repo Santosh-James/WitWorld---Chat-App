@@ -36,5 +36,7 @@ Contributions to WitWorld are welcome! If you find any bugs or have suggestions 
 ## Contact
 
 If you have any questions or feedback, feel free to contact:
+
 Santosh James
+
 sanjames.dev@gmail.com
