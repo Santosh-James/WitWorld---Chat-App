@@ -23,8 +23,8 @@ WitWorld is a real-time chat application where users can join and engage in conv
 
 To run the WitWorld chat application locally, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/yourusername/witworld.git`
-2. Navigate to the project directory: `cd witworld`
+1. Clone the repository: `gh repo clone Santosh-James/WitWorld---Chat-App`
+2. Navigate to the project directory: `cd WitWorld---Chat-App`
 3. Install dependencies: `npm install express socket.io`
 4. Start the server: `npm start`
 5. Open your web browser and go to `http://localhost:3000` to access the application.
